@@ -18,10 +18,14 @@ export class AuthenticatorRequest {
         return this._encodedPayload;
     }
 
-    public processResponse(response: string) {
+    public async processResponse(response: string) {
         const payload =  Buffer.from(this.encodedPayload, "base64url");
         const signature =  Buffer.from(response, "base64url");
 
-        return this.authenticatorClient.processResponse(payload, signature);
+        return await this.authenticatorClient.processResponse(payload, signature);
+    }
+
+    public getSignUrl(): string {
+        return this.authenticatorClient.remoteService.getSignUrl(this.encodedPayload);
     }
 }
