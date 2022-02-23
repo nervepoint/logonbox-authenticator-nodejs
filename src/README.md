@@ -1,1 +1,0 @@
-Minimum node version: 11.6.0
