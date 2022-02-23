@@ -115,7 +115,7 @@ export class AuthenticatorClient {
         const sigBuff = new SSHBuffer({buffer: signature});
         const success = sigBuff.readChar();
 
-        if (success === "1") {
+        if (success === 1) {
             const username = sigBuff.readString();
             const fingerprint = sigBuff.readString();
             const flags = sigBuff.readInt();
@@ -128,7 +128,9 @@ export class AuthenticatorClient {
     }
 
     public async generateRequest(principal: string, redirectURL: string) {
-        const request = new SSHBuffer();
+        const request = new SSHBuffer({
+            buffer: Buffer.alloc(128)
+        });
 
         const publicKey = await this.getDefaultKey(principal);
         const fingerprint = publicKey.fingerprint().toString();
@@ -220,7 +222,7 @@ export class AuthenticatorClient {
             const dataBuff = new SSHBuffer({buffer: data});
             const success = dataBuff.readChar();
 
-            if (success !== "1") {
+            if (success !== 1) {
                 throw new Error(dataBuff.readString());
             }
             throw new Error("The server did not respond with a valid response!");
