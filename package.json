@@ -6,7 +6,6 @@
   "scripts": {
     "test": "jest",
     "build": "rm -rf dist && tsc -p .",
-    "run": "node dist/index.js",
     "eslint" : "eslint src --ext .ts"
   },
   "keywords": [],
