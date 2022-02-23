@@ -15,7 +15,7 @@ const sshPublicKeyFormat = (principal: string) => {
 
 const MockedRemoteService = jest.fn<RemoteService, any[]>(() => ({
     hostname(): string {
-        return "corp.logonbox.directory";
+        return "some.directory.org";
     },
 
     port(): number {
@@ -51,7 +51,7 @@ describe("authenticator client tests", () => {
         MockedRemoteService.mockClear();
     });
 
-    it('should fetch list of ss keys',  async () => {
+    it('should fetch list of ssh keys',  async () => {
         const ac = new AuthenticatorClient(MockedRemoteService());
         ac.debug = true;
 
@@ -74,7 +74,7 @@ describe("authenticator client tests", () => {
     it("should throw error if remote response does not return signature", async () => {
         const MockedFailedRemoteService = jest.fn<RemoteService, any[]>(() => ({
             hostname(): string {
-                return "corp.logonbox.directory";
+                return "some.directory.org";
             },
 
             port(): number {
